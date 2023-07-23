@@ -8,8 +8,21 @@ import 'package:news_app/widgets/news_list_image_loading_widget.dart';
 import '../helpers/constants.dart';
 
 class NewsWidget extends StatelessWidget {
+  final String title;
+  final String description;
+  final String newsDetails;
+  final String imageUrl;
+  final String newsType;
+  final String createdAt;
+
   const NewsWidget({
     super.key,
+    required this.title,
+    required this.description,
+    required this.newsDetails,
+    required this.imageUrl,
+    required this.newsType,
+    required this.createdAt,
   });
 
   @override
@@ -17,7 +30,14 @@ class NewsWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-          return NewsDetailScreen();
+          return NewsDetailScreen(
+            title: title,
+            description: description,
+            newsDetails: newsDetails,
+            imageUrl: imageUrl,
+            newsType: newsType,
+            createdAt: createdAt,
+          );
         }));
       },
       child: Container(
@@ -26,8 +46,7 @@ class NewsWidget extends StatelessWidget {
         child: Row(
           children: [
             CachedNetworkImage(
-              imageUrl:
-                  "https://www.gamespot.com/a/uploads/square_medium/1601/16018044/4158211-gotg-vol-3-square.jpg",
+              imageUrl: imageUrl,
               placeholder: (context, url) => const NewsListImageLoadingWidget(),
               errorWidget: (context, url, error) =>
                   const NewsListImageErrorWidget(),
@@ -54,14 +73,15 @@ class NewsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Movies",
+                      newsType,
                       style: TextStyle(
                         color: mySoftTextColor,
                         fontSize: 13,
                       ),
                     ),
                     Text(
-                      "This is the new title and it may be long or short, I don't know so wtf",
+                      title,
+                      maxLines: 4,
                       softWrap: true,
                       style: TextStyle(
                         fontSize: 16,
@@ -70,7 +90,7 @@ class NewsWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      "May 22,2023",
+                      createdAt,
                       style: TextStyle(
                         color: mySoftTextColor,
                         fontSize: 13,

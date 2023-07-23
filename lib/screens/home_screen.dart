@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:marquee/marquee.dart';
 import 'package:news_app/helpers/constants.dart';
 import 'package:news_app/pages/global_news_page.dart';
+import 'package:news_app/pages/global_prices_page.dart';
 import 'package:news_app/pages/local_news_page.dart';
+import 'package:news_app/pages/local_prices_page.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/MenuWidget.dart';
@@ -40,50 +43,61 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     color: myPrimaryColor,
-                    // borderRadius: BorderRadius.only(
-                    //   bottomLeft: Radius.circular(30),
-                    //   bottomRight: Radius.circular(30),
-                    // ),
                   ),
                 ),
                 Positioned(
                   bottom: 0,
                   left: 0,
                   right: 0,
-                  child: Container(
-                    // color: Colors.red,
-                    height: 150,
-                    width: size.width,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(children: [
-                        MenuWidget(
-                          menuName: "Local News",
-                          iconName: "local_news",
-                          menuIndex: 0,
-                          changeCurrentPage: changePage,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20),
+                        height: 50,
+                        width: size.width,
+                        child: Marquee(
+                          text: 'Placeholder Text for moving text message.              ',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
-                        MenuWidget(
-                          menuName: "Global News",
-                          iconName: "global_news",
-                          menuIndex: 1,
-                          changeCurrentPage: changePage,
+                      ),
+                      Container(
+                        height: 150,
+                        width: size.width,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(children: [
+                            MenuWidget(
+                              menuName: "Local News",
+                              iconName: "local_news",
+                              menuIndex: 0,
+                              changeCurrentPage: changePage,
+                            ),
+                            MenuWidget(
+                              menuName: "Global News",
+                              iconName: "global_news",
+                              menuIndex: 1,
+                              changeCurrentPage: changePage,
+                            ),
+                            MenuWidget(
+                              menuName: "Local Prices",
+                              iconName: "local_prices",
+                              menuIndex: 2,
+                              changeCurrentPage: changePage,
+                            ),
+                            MenuWidget(
+                              menuName: "Global Prices",
+                              iconName: "global_prices",
+                              menuIndex: 3,
+                              changeCurrentPage: changePage,
+                            ),
+                            const SizedBox(width: 30),
+                          ]),
                         ),
-                        MenuWidget(
-                          menuName: "Local Prices",
-                          iconName: "local_prices",
-                          menuIndex: 2,
-                          changeCurrentPage: changePage,
-                        ),
-                        MenuWidget(
-                          menuName: "Global Prices",
-                          iconName: "global_prices",
-                          menuIndex: 3,
-                          changeCurrentPage: changePage,
-                        ),
-                        const SizedBox(width: 30),
-                      ]),
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -102,8 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   LocalNewsPage(),
                   GlobalNewsPage(),
-                  Container(color: Colors.blue),
-                  Container(color: Colors.orange),
+                  LocalPricesPage(),
+                  GlobalPricesPage(),
                 ],
               ),
             ),
