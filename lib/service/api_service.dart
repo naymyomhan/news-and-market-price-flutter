@@ -5,9 +5,11 @@ import 'package:news_app/models/local_price_model.dart';
 import 'package:news_app/models/news_model.dart';
 import 'package:retrofit/http.dart';
 
+import '../models/marquee_model.dart';
+
 part 'api_service.g.dart';
 
-@RestApi(baseUrl: 'http://192.168.1.156/api/')
+@RestApi(baseUrl: 'http://159.65.2.26/api/')
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
@@ -42,4 +44,7 @@ abstract class ApiService {
 
   @GET('items')
   Future<ItemsModel> getItems();
+
+  @GET('marquee_text')
+  Future<MarqueeModel> getMarqueeText();
 }

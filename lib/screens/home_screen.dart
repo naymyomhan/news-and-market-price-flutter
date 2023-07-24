@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:news_app/helpers/constants.dart';
@@ -5,8 +6,11 @@ import 'package:news_app/pages/global_news_page.dart';
 import 'package:news_app/pages/global_prices_page.dart';
 import 'package:news_app/pages/local_news_page.dart';
 import 'package:news_app/pages/local_prices_page.dart';
+import 'package:news_app/service/ads_service.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../service/api_service.dart';
 import '../widgets/MenuWidget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,6 +22,31 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final pageController = PageController(initialPage: 0);
+
+  final apiService = ApiService(Dio(BaseOptions(contentType: "application/json")));
+
+  String marqueeText = "";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getMarqueeText();
+    AdsService.loadRewardedInterstitialAd();
+  }
+
+  Future<void> _getMarqueeText() async {
+    try {
+      final marquee = await apiService.getMarqueeText();
+
+      print(marquee);
+      setState(() {
+        marqueeText = marquee.data.toString();
+      });
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   void changePage(int index) {
     pageController.animateToPage(
@@ -56,39 +85,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 50,
                         width: size.width,
                         child: Marquee(
-                          text: 'Placeholder Text for moving text message.              ',
+                          text: '$marqueeText              ',
                           style: const TextStyle(
                             fontSize: 20,
                             color: Colors.white,
                           ),
                         ),
                       ),
-                      Container(
-                        height: 150,
+                      SizedBox(
+                        height: 160,
                         width: size.width,
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(children: [
                             MenuWidget(
-                              menuName: "Local News",
+                              menuName: AppLocalizations.of(context)!.localNews,
                               iconName: "local_news",
                               menuIndex: 0,
                               changeCurrentPage: changePage,
                             ),
                             MenuWidget(
-                              menuName: "Global News",
+                              menuName: AppLocalizations.of(context)!.globalNews,
                               iconName: "global_news",
                               menuIndex: 1,
                               changeCurrentPage: changePage,
                             ),
                             MenuWidget(
-                              menuName: "Local Prices",
+                              menuName: AppLocalizations.of(context)!.localPrices,
                               iconName: "local_prices",
                               menuIndex: 2,
                               changeCurrentPage: changePage,
                             ),
                             MenuWidget(
-                              menuName: "Global Prices",
+                              menuName: AppLocalizations.of(context)!.globalPrices,
                               iconName: "global_prices",
                               menuIndex: 3,
                               changeCurrentPage: changePage,

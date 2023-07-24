@@ -29,14 +29,14 @@ class MenuWidget extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.only(left: 20),
         width: 100,
-        height: 110,
+        height: 135,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-              offset: Offset(0, 10),
-              blurRadius: 10,
+              offset: Offset(0, 5),
+              blurRadius: 5,
               color: myPrimaryColor.withOpacity(0.2),
             ),
           ],
@@ -51,6 +51,9 @@ class MenuWidget extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              softWrap: true,
               menuName,
               style: TextStyle(
                 color: myTextColor,

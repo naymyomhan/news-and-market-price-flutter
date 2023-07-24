@@ -2,9 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/helpers/constants.dart';
+import 'package:news_app/main.dart';
 
 import '../service/api_service.dart';
+import '../widgets/news_loading_widget.dart';
 import '../widgets/news_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocalNewsPage extends StatefulWidget {
   const LocalNewsPage({super.key});
@@ -20,6 +23,8 @@ class _LocalNewsPageState extends State<LocalNewsPage> {
   int page = 1;
   int limit = 5;
   bool hasMore = true;
+
+  String _selectedLanguage = 'my';
 
   final scrollController = ScrollController();
   final apiService = ApiService(Dio(BaseOptions(contentType: "application/json")));
@@ -72,62 +77,70 @@ class _LocalNewsPageState extends State<LocalNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Container(
-            child: Text("LOading"),
-          )
-        : Column(
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Global News",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: mySoftTextColor,
-                      ),
-                    ),
-                    DropdownButton(
-                      hint: Text(
-                        "🇲🇲 မြန်မာ",
-                        style: TextStyle(
-                          fontSize: 14,
-                        ),
-                      ),
-                      items: const [
-                        DropdownMenuItem(
-                          child: Text(
-                            "🇲🇲 မြန်မာ",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          value: 1,
-                        ),
-                        DropdownMenuItem(
-                          child: Text(
-                            "🇻🇬 English",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          value: 2,
-                        ),
-                      ],
-                      onChanged: (value) {
-                        print(value);
-                      },
-                    )
-                  ],
+              Text(
+                AppLocalizations.of(context)!.localNews,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: mySoftTextColor,
                 ),
               ),
-              const SizedBox(height: 20),
-              Expanded(
+              DropdownButton(
+                hint: Text(
+                  _selectedLanguage == 'my' ? "🇲🇲 မြန်မာ" : "🇻🇬 English",
+                  style: const TextStyle(
+                    fontSize: 14,
+                  ),
+                ),
+                value: _selectedLanguage,
+                items: const [
+                  DropdownMenuItem(
+                    value: "my",
+                    child: Text(
+                      "🇲🇲 မြန်မာ",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: "en",
+                    child: Text(
+                      "🇻🇬 English",
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _selectedLanguage = value.toString(); // Update the selected language
+                  });
+                  AppMainWidget.setLocale(context, Locale(value.toString(), ''), value.toString());
+                },
+              )
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        isLoading
+            ? Column(
+                children: const [
+                  NewsLoadingWidget(),
+                  NewsLoadingWidget(),
+                  NewsLoadingWidget(),
+                ],
+              )
+            : Expanded(
                 child: RefreshIndicator(
                   onRefresh: refersh,
                   child: ListView.builder(
@@ -148,7 +161,7 @@ class _LocalNewsPageState extends State<LocalNewsPage> {
                   ),
                 ),
               ),
-            ],
-          );
+      ],
+    );
   }
 }

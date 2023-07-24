@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/helpers/constants.dart';
-import 'package:news_app/models/news_model.dart';
 import 'package:news_app/service/api_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../widgets/news_loading_widget.dart';
 import '../widgets/news_widget.dart';
 
 class GlobalNewsPage extends StatefulWidget {
@@ -23,8 +23,7 @@ class _GlobalNewsPageState extends State<GlobalNewsPage> {
   bool hasMore = true;
 
   final scrollController = ScrollController();
-  final apiService =
-      ApiService(Dio(BaseOptions(contentType: "application/json")));
+  final apiService = ApiService(Dio(BaseOptions(contentType: "application/json")));
 
   @override
   void initState() {
@@ -34,8 +33,7 @@ class _GlobalNewsPageState extends State<GlobalNewsPage> {
 
     //Scroll controller
     scrollController.addListener(() {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.offset) {
+      if (scrollController.position.maxScrollExtent == scrollController.offset) {
         _getGlobalNews();
       }
     });
@@ -43,8 +41,7 @@ class _GlobalNewsPageState extends State<GlobalNewsPage> {
 
   Future<void> _getGlobalNews() async {
     try {
-      final globalNews =
-          await apiService.getNews('global', page: page, limit: limit);
+      final globalNews = await apiService.getNews('global', page: page, limit: limit);
       setState(() {
         globalNewsList = List.from(globalNewsList)..addAll(globalNews.data);
         isLoading = false;
@@ -76,26 +73,30 @@ class _GlobalNewsPageState extends State<GlobalNewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? Container(
-            child: Text("LOading"),
-          )
-        : Column(
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                child: const Text(
-                  "Global News",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: mySoftTextColor,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Expanded(
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          width: double.infinity,
+          child: Text(
+            AppLocalizations.of(context)!.globalNews,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: mySoftTextColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        isLoading
+            ? Column(
+                children: const [
+                  NewsLoadingWidget(),
+                  NewsLoadingWidget(),
+                  NewsLoadingWidget(),
+                ],
+              )
+            : Expanded(
                 child: RefreshIndicator(
                   onRefresh: refersh,
                   child: ListView.builder(
@@ -116,7 +117,7 @@ class _GlobalNewsPageState extends State<GlobalNewsPage> {
                   ),
                 ),
               ),
-            ],
-          );
+      ],
+    );
   }
 }

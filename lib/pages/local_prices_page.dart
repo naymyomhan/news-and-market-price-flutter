@@ -3,12 +3,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:intl/intl.dart';
 import 'package:news_app/service/geo_api_service.dart';
+import 'package:news_app/utils/app_utils.dart';
 
 import '../helpers/constants.dart';
 import '../service/api_service.dart';
 import '../widgets/price_list_chart.dart';
 import '../widgets/selectable_list_loading_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LocalPricesPage extends StatefulWidget {
   const LocalPricesPage({super.key});
@@ -29,6 +32,9 @@ class _LocalPricesPageState extends State<LocalPricesPage> {
   String selectedState = "";
   String selectedCity = "";
   String selectedItem = "";
+
+  String selectedDate = "Select Date";
+  String selectedMonth = "Select Month";
 
   //INITIAL LISTS
   List localPriceList = [];
@@ -104,24 +110,57 @@ class _LocalPricesPageState extends State<LocalPricesPage> {
           localPriceList = localPrices.data;
           isLoading = false;
         });
-        // print(localPrices.toJson());
       } catch (e) {
         print('Error: $e');
       }
     }
   }
 
-  // Future<void> _getCountries() async {
-  //   try {
-  //     final countries = await geoApiService.getCountries();
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2030),
+    );
 
-  //     setState(() {
-  //       countryList = countries.data;
-  //     });
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+    if (pickedDate != null && pickedDate != DateTime.now()) {
+      print('Selected date: ${pickedDate.toString()}');
+      setState(() {
+        selectedDate = AppUtils().formatDateToYMD(pickedDate);
+      });
+    }
+  }
+
+  Future<void> _selectMonth(BuildContext context) async {
+    DateTime currentDate = DateTime.now();
+    DateTime firstDayOfMonth = DateTime(currentDate.year, currentDate.month, 1);
+
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: firstDayOfMonth,
+      firstDate: DateTime(currentDate.year - 1),
+      lastDate: DateTime(currentDate.year + 1),
+      builder: (BuildContext context, Widget? child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: myPrimaryColor,
+            colorScheme: const ColorScheme.light(primary: Colors.blue),
+            buttonTheme: const ButtonThemeData(textTheme: ButtonTextTheme.primary),
+          ),
+          child: child!,
+        );
+      },
+      initialDatePickerMode: DatePickerMode.year,
+      selectableDayPredicate: (DateTime date) {
+        return date.day == 1;
+      },
+    );
+
+    if (pickedDate != null && pickedDate != firstDayOfMonth) {
+      print('Selected month: ${pickedDate.toString()}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,9 +169,9 @@ class _LocalPricesPageState extends State<LocalPricesPage> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
           width: double.infinity,
-          child: const Text(
-            "Local Prices",
-            style: TextStyle(
+          child: Text(
+            AppLocalizations.of(context)!.localPrices,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               color: mySoftTextColor,
@@ -316,6 +355,22 @@ class _LocalPricesPageState extends State<LocalPricesPage> {
                             color: mySoftTextColor,
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => _selectDate(context),
+                          child: Text(selectedDate),
+                        ),
+                        const SizedBox(width: 10),
+                        ElevatedButton(
+                          onPressed: () => _selectMonth(context),
+                          child: Text(selectedMonth),
+                        )
                       ],
                     ),
                   ),
