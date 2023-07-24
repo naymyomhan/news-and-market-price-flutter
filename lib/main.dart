@@ -45,7 +45,7 @@ class AppMainWidget extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: localeProvider.locale, // Use the locale from the provider
+      locale: localeProvider.locale,
       home: HomeScreen(),
     );
   }
