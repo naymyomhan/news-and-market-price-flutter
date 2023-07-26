@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:news_app/helpers/constants.dart';
+import 'package:news_app/utils/constants.dart';
 import 'package:news_app/service/ads_service.dart';
 
 class NewsDetailScreen extends StatefulWidget {

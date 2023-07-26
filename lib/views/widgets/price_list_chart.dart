@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/helpers/constants.dart';
+import 'package:news_app/utils/constants.dart';
 
 class PriceListChart extends StatelessWidget {
   const PriceListChart({

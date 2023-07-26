@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/helpers/constants.dart';
+import 'package:news_app/utils/constants.dart';
 import 'package:news_app/service/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

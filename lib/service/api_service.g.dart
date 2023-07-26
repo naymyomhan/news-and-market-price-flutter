@@ -13,7 +13,7 @@ class _ApiService implements ApiService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://159.65.2.26/api/';
+    baseUrl ??= 'http://192.168.1.156/api/';
   }
 
   final Dio _dio;
@@ -52,6 +52,41 @@ class _ApiService implements ApiService {
               baseUrl,
             ))));
     final value = NewsModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ArticlesModel> getArticles(
+    String type, {
+    int? page,
+    int? limit,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ArticlesModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'news/${type}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ArticlesModel.fromJson(_result.data!);
     return value;
   }
 

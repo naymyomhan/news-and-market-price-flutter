@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:news_app/providers/locale_provider.dart';
+import 'package:news_app/view_models/articles_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_app/helpers/constants.dart';
-import 'package:news_app/screens/home_screen.dart';
+import 'package:news_app/utils/constants.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+
+import 'views/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,18 +37,23 @@ class AppMainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final localeProvider = Provider.of<LocaleProvider>(context);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'News',
-      theme: ThemeData(
-        primaryColor: myPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: myTextColor),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ArticlesViewModel()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'News',
+        theme: ThemeData(
+          primaryColor: myPrimaryColor,
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: myTextColor),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: localeProvider.locale,
+        home: HomeScreen(),
       ),
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      locale: localeProvider.locale,
-      home: HomeScreen(),
     );
   }
 

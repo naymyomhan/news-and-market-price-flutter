@@ -1,6 +1,7 @@
 {
     "localNews":"Local News",
     "globalNews":"Global News",
+    "articles":"Articles",
     "localPrices":"Local Prices",
     "globalPrices":"Global Prices"
 }

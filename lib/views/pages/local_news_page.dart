@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/helpers/constants.dart';
+import 'package:news_app/utils/constants.dart';
 import 'package:news_app/main.dart';
 
-import '../service/api_service.dart';
+import '../../service/api_service.dart';
 import '../widgets/news_loading_widget.dart';
 import '../widgets/news_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

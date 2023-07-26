@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/svg.dart';
-
-import '../helpers/constants.dart';
+import 'package:news_app/utils/constants.dart';
 
 class MenuWidget extends StatelessWidget {
   final String menuName;
@@ -45,7 +41,7 @@ class MenuWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset(
-              "assets/svg/" + iconName + ".svg",
+              "assets/svg/$iconName.svg",
               width: 40,
               height: 40,
             ),
@@ -55,7 +51,7 @@ class MenuWidget extends StatelessWidget {
               maxLines: 2,
               softWrap: true,
               menuName,
-              style: TextStyle(
+              style: const TextStyle(
                 color: myTextColor,
                 fontSize: 14,
               ),

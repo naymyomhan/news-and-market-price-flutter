@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/screens/home_screen.dart';
-import 'package:news_app/screens/news_detail_screen.dart';
-import 'package:news_app/widgets/news_list_image_error_widget.dart';
-import 'package:news_app/widgets/news_list_image_loading_widget.dart';
+import 'package:news_app/views/screens/home_screen.dart';
+import 'package:news_app/views/screens/news_detail_screen.dart';
+import 'package:news_app/views/widgets/news_list_image_error_widget.dart';
+import 'package:news_app/views/widgets/news_list_image_loading_widget.dart';
 
-import '../helpers/constants.dart';
+import '../../utils/constants.dart';
 
 class NewsWidget extends StatelessWidget {
   final String title;
@@ -48,8 +48,7 @@ class NewsWidget extends StatelessWidget {
             CachedNetworkImage(
               imageUrl: imageUrl,
               placeholder: (context, url) => const NewsListImageLoadingWidget(),
-              errorWidget: (context, url, error) =>
-                  const NewsListImageErrorWidget(),
+              errorWidget: (context, url, error) => const NewsListImageErrorWidget(),
               imageBuilder: (context, imageProvider) => Container(
                 width: 140,
                 height: 140,
