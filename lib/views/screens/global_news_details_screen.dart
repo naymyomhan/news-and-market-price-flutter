@@ -44,7 +44,7 @@ class _GlobalNewsDetailsScreenState extends State<GlobalNewsDetailsScreen> {
                 ),
                 Center(
                   child: Text(
-                    "News Detail",
+                    "Global News Detail",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,

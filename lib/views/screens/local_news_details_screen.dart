@@ -44,7 +44,7 @@ class _LocalNewsDetailsScreenState extends State<LocalNewsDetailsScreen> {
                 ),
                 Center(
                   child: Text(
-                    "News Detail",
+                    "Local News Detail",
                     style: TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
