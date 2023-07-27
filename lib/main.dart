@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:news_app/providers/locale_provider.dart';
+import 'package:news_app/view_models/localization_view_model.dart';
 import 'package:news_app/view_models/articles_view_model.dart';
 import 'package:news_app/view_models/global_news_view_model.dart';
 import 'package:news_app/view_models/local_news_view_model.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(),
+      create: (context) => LocalizationViewModel(),
       child: AppMainWidget(),
     );
   }
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
 class AppMainWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final localeProvider = Provider.of<LocaleProvider>(context);
+    final localeProvider = Provider.of<LocalizationViewModel>(context);
 
     return MultiProvider(
       providers: [
@@ -56,13 +56,13 @@ class AppMainWidget extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: localeProvider.locale,
-        home: HomeScreen(),
+        home: const HomeScreen(),
       ),
     );
   }
 
   static void setLocale(BuildContext context, Locale newLocale, String languageString) {
-    final localeProvider = Provider.of<LocaleProvider>(context, listen: false);
+    final localeProvider = Provider.of<LocalizationViewModel>(context, listen: false);
     localeProvider.setLocale(newLocale, languageString);
   }
 }

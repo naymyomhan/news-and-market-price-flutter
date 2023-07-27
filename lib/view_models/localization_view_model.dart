@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LocaleProvider with ChangeNotifier {
+class LocalizationViewModel with ChangeNotifier {
   Locale _locale = Locale('my', '');
   String _currentLanguage = 'my';
 
