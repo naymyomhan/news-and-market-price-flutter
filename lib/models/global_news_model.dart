@@ -1,26 +1,26 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'articles_model.g.dart';
+part 'global_news_model.g.dart';
 
 @JsonSerializable()
-class ArticlesModel {
+class GlobalNewsModel {
   final bool success;
   final String message;
-  final List<ArticleModelList> data;
+  final List<GlobalNewsModelList> data;
 
-  ArticlesModel({
+  GlobalNewsModel({
     required this.success,
     required this.message,
     required this.data,
   });
 
-  factory ArticlesModel.fromJson(Map<String, dynamic> json) => _$ArticlesModelFromJson(json);
+  factory GlobalNewsModel.fromJson(Map<String, dynamic> json) => _$GlobalNewsModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$ArticlesModelToJson(this);
+  Map<String, dynamic> toJson() => _$GlobalNewsModelToJson(this);
 }
 
 @JsonSerializable()
-class ArticleModelList {
+class GlobalNewsModelList {
   final int id;
   final String title;
   final String description;
@@ -29,7 +29,7 @@ class ArticleModelList {
   final String newsType;
   final String createdAt;
 
-  ArticleModelList({
+  GlobalNewsModelList({
     required this.id,
     required this.title,
     required this.description,
@@ -39,6 +39,6 @@ class ArticleModelList {
     required this.createdAt,
   });
 
-  factory ArticleModelList.fromJson(Map<String, dynamic> json) => _$ArticleModelListFromJson(json);
-  Map<String, dynamic> toJson() => _$ArticleModelListToJson(this);
+  factory GlobalNewsModelList.fromJson(Map<String, dynamic> json) => _$GlobalNewsModelListFromJson(json);
+  Map<String, dynamic> toJson() => _$GlobalNewsModelListToJson(this);
 }

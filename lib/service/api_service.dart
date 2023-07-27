@@ -2,10 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:news_app/models/articles_model.dart';
 import 'package:news_app/models/global_price_model.dart';
 import 'package:news_app/models/items_model.dart';
+import 'package:news_app/models/local_news_model.dart';
 import 'package:news_app/models/local_price_model.dart';
-import 'package:news_app/models/news_model.dart';
 import 'package:retrofit/http.dart';
 
+import '../models/global_news_model.dart';
 import '../utils/constants.dart';
 import '../models/marquee_model.dart';
 
@@ -16,7 +17,14 @@ abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
   @GET('news/{type}')
-  Future<NewsModel> getNews(
+  Future<LocalNewsModel> getLocalNews(
+    @Path('type') String type, {
+    @Query('page') int? page,
+    @Query('limit') int? limit,
+  });
+
+  @GET('news/{type}')
+  Future<GlobalNewsModel> getGlobalNews(
     @Path('type') String type, {
     @Query('page') int? page,
     @Query('limit') int? limit,

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:news_app/providers/locale_provider.dart';
 import 'package:news_app/view_models/articles_view_model.dart';
+import 'package:news_app/view_models/global_news_view_model.dart';
+import 'package:news_app/view_models/local_news_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/utils/constants.dart';
@@ -40,6 +42,8 @@ class AppMainWidget extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ArticlesViewModel()),
+        ChangeNotifierProvider(create: (context) => LocalNewsViewModel()),
+        ChangeNotifierProvider(create: (context) => GlobalNewsViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

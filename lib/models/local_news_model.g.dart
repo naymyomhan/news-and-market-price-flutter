@@ -1,26 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'news_model.dart';
+part of 'local_news_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-NewsModel _$NewsModelFromJson(Map<String, dynamic> json) => NewsModel(
+LocalNewsModel _$LocalNewsModelFromJson(Map<String, dynamic> json) =>
+    LocalNewsModel(
       success: json['success'] as bool,
       message: json['message'] as String,
       data: (json['data'] as List<dynamic>)
-          .map((e) => Data.fromJson(e as Map<String, dynamic>))
+          .map((e) => LocalNewsModelList.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$NewsModelToJson(NewsModel instance) => <String, dynamic>{
+Map<String, dynamic> _$LocalNewsModelToJson(LocalNewsModel instance) =>
+    <String, dynamic>{
       'success': instance.success,
       'message': instance.message,
       'data': instance.data,
     };
 
-Data _$DataFromJson(Map<String, dynamic> json) => Data(
+LocalNewsModelList _$LocalNewsModelListFromJson(Map<String, dynamic> json) =>
+    LocalNewsModelList(
       id: json['id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
@@ -30,7 +33,8 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       createdAt: json['createdAt'] as String,
     );
 
-Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
+Map<String, dynamic> _$LocalNewsModelListToJson(LocalNewsModelList instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,

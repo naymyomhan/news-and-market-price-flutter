@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:news_app/models/articles_model.dart';
+import 'package:news_app/models/global_news_model.dart';
 import 'package:news_app/service/api_service.dart';
 
-class ArticlesViewModel extends ChangeNotifier {
+class GlobalNewsViewModel extends ChangeNotifier {
   bool _loading = false;
   bool _hasMore = true;
-  List<ArticleModelList> _articleList = [];
+  List<GlobalNewsModelList> _globalNewsList = [];
   final apiService = ApiService(Dio(BaseOptions(contentType: "application/json")));
-  late ArticleModelList _selectedArticle;
+  late GlobalNewsModelList _selectedGlobalNews;
 
   //request parms
   int currentPage = 1;
@@ -17,10 +17,10 @@ class ArticlesViewModel extends ChangeNotifier {
   //Getters
   bool get loading => _loading;
   bool get hasMore => _hasMore;
-  List<ArticleModelList> get articleList => _articleList;
-  ArticleModelList get selectedArticle => _selectedArticle;
+  List<GlobalNewsModelList> get globalNewsList => _globalNewsList;
+  GlobalNewsModelList get selectedGlobalNews => _selectedGlobalNews;
 
-  ArticlesViewModel() {
+  GlobalNewsViewModel() {
     getUsers(currentPage, limit);
   }
 
@@ -34,20 +34,20 @@ class ArticlesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setArticleList(List<ArticleModelList> articleList) async {
-    _articleList = articleList;
+  setGlobalNewsList(List<GlobalNewsModelList> globalNewsList) async {
+    _globalNewsList = globalNewsList;
   }
 
-  addArticleList(List<ArticleModelList> articleList) async {
-    _articleList.addAll(articleList);
+  addGlobalNewsList(List<GlobalNewsModelList> globalNewsList) async {
+    _globalNewsList.addAll(globalNewsList);
     notifyListeners();
   }
 
   getUsers(int page, int limit) async {
     setLoading(true);
     try {
-      var response = await apiService.getArticles('local', page: page, limit: limit);
-      setArticleList(response.data);
+      var response = await apiService.getGlobalNews('global', page: page, limit: limit);
+      setGlobalNewsList(response.data);
     } catch (e) {
       print('Error: $e');
     }
@@ -58,8 +58,8 @@ class ArticlesViewModel extends ChangeNotifier {
     if (_hasMore) {
       // setLoading(true);
       try {
-        var response = await apiService.getArticles('local', page: currentPage + 1, limit: limit);
-        addArticleList(response.data);
+        var response = await apiService.getGlobalNews('global', page: currentPage + 1, limit: limit);
+        addGlobalNewsList(response.data);
       } catch (e) {
         print('Error: $e');
       }
@@ -68,7 +68,7 @@ class ArticlesViewModel extends ChangeNotifier {
     }
   }
 
-  setSelectedArticle(ArticleModelList article) {
-    _selectedArticle = article;
+  setSelectedGlobalNews(GlobalNewsModelList globalNews) {
+    _selectedGlobalNews = globalNews;
   }
 }

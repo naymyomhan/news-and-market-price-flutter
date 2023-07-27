@@ -21,7 +21,7 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<NewsModel> getNews(
+  Future<LocalNewsModel> getLocalNews(
     String type, {
     int? page,
     int? limit,
@@ -35,7 +35,7 @@ class _ApiService implements ApiService {
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<NewsModel>(Options(
+        .fetch<Map<String, dynamic>>(_setStreamType<LocalNewsModel>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -51,7 +51,42 @@ class _ApiService implements ApiService {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    final value = NewsModel.fromJson(_result.data!);
+    final value = LocalNewsModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<GlobalNewsModel> getGlobalNews(
+    String type, {
+    int? page,
+    int? limit,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'limit': limit,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<GlobalNewsModel>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'news/${type}',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = GlobalNewsModel.fromJson(_result.data!);
     return value;
   }
 
