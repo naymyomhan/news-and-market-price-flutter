@@ -21,12 +21,12 @@ class GlobalNewsViewModel extends ChangeNotifier {
   GlobalNewsModelList get selectedGlobalNews => _selectedGlobalNews;
 
   GlobalNewsViewModel() {
-    getUsers(currentPage, limit);
+    getGlobalNews(currentPage, limit);
   }
 
   refresh() async {
     currentPage = 1;
-    getUsers(currentPage, limit);
+    getGlobalNews(currentPage, limit);
   }
 
   setLoading(bool loading) async {
@@ -43,7 +43,7 @@ class GlobalNewsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getUsers(int page, int limit) async {
+  getGlobalNews(int page, int limit) async {
     setLoading(true);
     try {
       var response = await apiService.getGlobalNews('global', page: page, limit: limit);

@@ -21,12 +21,12 @@ class LocalNewsViewModel extends ChangeNotifier {
   LocalNewsModelList get selectedLocalNews => _selectedLocalNews;
 
   LocalNewsViewModel() {
-    getUsers(currentPage, limit);
+    getLocalNews(currentPage, limit);
   }
 
   refresh() async {
     currentPage = 1;
-    getUsers(currentPage, limit);
+    getLocalNews(currentPage, limit);
   }
 
   setLoading(bool loading) async {
@@ -43,7 +43,7 @@ class LocalNewsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getUsers(int page, int limit) async {
+  getLocalNews(int page, int limit) async {
     setLoading(true);
     try {
       var response = await apiService.getLocalNews('local', page: page, limit: limit);

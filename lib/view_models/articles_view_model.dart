@@ -21,12 +21,12 @@ class ArticlesViewModel extends ChangeNotifier {
   ArticleModelList get selectedArticle => _selectedArticle;
 
   ArticlesViewModel() {
-    getUsers(currentPage, limit);
+    getArticles(currentPage, limit);
   }
 
   refresh() async {
     currentPage = 1;
-    getUsers(currentPage, limit);
+    getArticles(currentPage, limit);
   }
 
   setLoading(bool loading) async {
@@ -43,7 +43,7 @@ class ArticlesViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getUsers(int page, int limit) async {
+  getArticles(int page, int limit) async {
     setLoading(true);
     try {
       var response = await apiService.getArticles('local', page: page, limit: limit);
