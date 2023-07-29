@@ -1,9 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/models/articles_model.dart';
-import 'package:news_app/utils/navigation_utils.dart';
-import 'package:news_app/views/screens/home_screen.dart';
-import 'package:news_app/views/screens/news_detail_screen.dart';
 import 'package:news_app/views/widgets/news_list_image_error_widget.dart';
 import 'package:news_app/views/widgets/news_list_image_loading_widget.dart';
 
@@ -25,55 +22,71 @@ class ArticleWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        height: 140,
-        child: Row(
+        height: 320,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 0),
+              blurRadius: 3,
+              color: Colors.black.withOpacity(0.1),
+            ),
+          ],
+        ),
+        child: Column(
           children: [
-            CachedNetworkImage(
-              imageUrl: article.imageUrl,
-              placeholder: (context, url) => const NewsListImageLoadingWidget(),
-              errorWidget: (context, url, error) => const NewsListImageErrorWidget(),
-              imageBuilder: (context, imageProvider) => Container(
-                width: 140,
-                height: 140,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+              child: CachedNetworkImage(
+                imageUrl: article.imageUrl,
+                placeholder: (context, url) => const NewsListImageLoadingWidget(),
+                errorWidget: (context, url, error) => const NewsListImageErrorWidget(),
+                imageBuilder: (context, imageProvider) => Container(
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 10,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
                   vertical: 10,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       article.newsType,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: mySoftTextColor,
-                        fontSize: 13,
+                        fontSize: 15,
                       ),
                     ),
+                    const SizedBox(height: 5),
                     Text(
                       article.title,
-                      maxLines: 4,
+                      maxLines: 2,
                       softWrap: true,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: myTextColor,
                       ),
                     ),
+                    const SizedBox(height: 5),
                     Text(
                       article.createdAt,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: mySoftTextColor,
                         fontSize: 13,
                       ),
