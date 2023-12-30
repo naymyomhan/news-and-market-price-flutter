@@ -61,8 +61,10 @@ class AppMainWidget extends StatelessWidget {
     );
   }
 
-  static void setLocale(BuildContext context, Locale newLocale, String languageString) {
-    final localeProvider = Provider.of<LocalizationViewModel>(context, listen: false);
+  static void setLocale(
+      BuildContext context, Locale newLocale, String languageString) {
+    final localeProvider =
+        Provider.of<LocalizationViewModel>(context, listen: false);
     localeProvider.setLocale(newLocale, languageString);
   }
 }

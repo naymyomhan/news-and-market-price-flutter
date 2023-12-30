@@ -7,7 +7,7 @@ void openArticleDetails(BuildContext context) async {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => ArticleDetailsScreen(),
+      builder: (context) => const ArticleDetailsScreen(),
     ),
   );
 }
@@ -16,7 +16,7 @@ void openLocalNewsDetails(BuildContext context) async {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => LocalNewsDetailsScreen(),
+      builder: (context) => const LocalNewsDetailsScreen(),
     ),
   );
 }
@@ -25,7 +25,7 @@ void openGlobalNewsDetails(BuildContext context) async {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => GlobalNewsDetailsScreen(),
+      builder: (context) => const GlobalNewsDetailsScreen(),
     ),
   );
 }
