@@ -64,12 +64,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: 250,
+            height: 230,
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
                 Container(
-                  height: 250 - 60,
+                  height: 230 - 60,
                   width: MediaQuery.of(context).size.width,
                   decoration: const BoxDecoration(
                     color: myPrimaryColor,
@@ -81,18 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   right: 0,
                   child: Column(
                     children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(horizontal: 20),
-                        height: 50,
-                        width: size.width,
-                        child: Marquee(
-                          text: '$marqueeText              ',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                       SizedBox(
                         height: 160,
                         width: size.width,

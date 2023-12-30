@@ -1,4 +1,8 @@
-# News & Market Flutter App
+# 👀 News & Market Flutter App
+
+<a href="https://flutter.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/flutterio/flutterio-icon.svg" alt="flutter" width="40" height="40"/> </a> <a href="https://dart.dev" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" alt="dart" width="40" height="40"/> </a> 
+
+
 
 A simple Flutter app that provides updated news and local and global market product price lists, using Provider for state management.
 
